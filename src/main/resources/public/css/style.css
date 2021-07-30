@@ -1,0 +1,45 @@
+.form-login{
+    width: 100%;
+    max-width: 350px;
+    margin: 0px auto;
+
+}
+.form-reg{
+    width: 100%;
+    max-width: 350px;
+    margin: 0px auto;
+}
+
+.login-input{
+    width: 100%;
+    padding: 5px;
+    margin-top: 5px;
+}
+
+.submit-button{
+    color: white;
+    width: 150px;
+    height: 40px;
+    padding: 5px;
+    border-radius: 10px;
+    background: black;
+    border-width: inherit;
+    margin-top: 10px;
+}
+
+.button{
+    color: white;
+    width: 150px;
+    height: 40px;
+    padding: 5px;
+    border-radius: 10px;
+    background: black;
+    border-width: inherit;
+    margin-top: 10px;
+}
+
+.reg-label{
+    display: block;
+    text-align: left;
+    margin-top: 7px;
+}
