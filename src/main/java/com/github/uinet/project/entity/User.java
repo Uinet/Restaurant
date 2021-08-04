@@ -1,24 +1,26 @@
 package com.github.uinet.project.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.util.List;
+import javax.persistence.*;
 
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class User implements UserDetails {
-
-    private List<Role> authorities;
+@Entity
+@Setter
+@Getter
+@Table(name="users")
+public class User{
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(nullable = false)
+    private Long id;
+    @Column(nullable = false)
+    private String name;
+    @Column(nullable = false, unique = true)
+    private String email;
+    @Column(nullable = false)
     private String password;
-    private String username;
-    private boolean accountNonExpired;
-    private boolean accountNonLocked;
-    private boolean credentialsNonExpired;
-    private boolean enabled;
+    @Column
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
 }
