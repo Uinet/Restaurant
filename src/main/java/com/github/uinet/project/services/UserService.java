@@ -1,6 +1,5 @@
 package com.github.uinet.project.services;
 
-import com.github.uinet.project.entity.User;
 import com.github.uinet.project.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +16,6 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-       return userRepository.findByEmail(username).orElseThrow(()->new UsernameNotFoundException("Email: " + username + "not found"));
+        return userRepository.findByUsername(username).orElseThrow(()->new UsernameNotFoundException("Email: " + username + "not found"));
     }
 }

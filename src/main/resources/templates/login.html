@@ -10,15 +10,16 @@
     <body class="text-center">
         <form method="post" class="form-login">
             <h1>Login</h1>
-                <div th:if="${error}" class="alert alert-danger" role="alert">
-                    Incorrect login or password!
-                </div>
+            <div th:if="${error}" class="alert alert-danger" role="alert">
+                Incorrect login or password!
+            </div>
             <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden">
             <label for="username">Username</label>
             <input type="text" class="login-input" id="username" name="username" placeholder="Login"></input>
             <label for="password">Password</label>
             <input type="password" class="login-input" id="password" name="password" placeholder="Password"></input>
             <button type="submit" class="submit-button">Login</button>
+            <a href="/reg"></a>
         </form>
     </body>
 </html>
