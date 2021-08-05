@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <head>
         <meta charset="UTF-8">
         <title>Login</title>
@@ -9,12 +10,10 @@
     <body class="text-center">
         <form method="post" class="form-login">
             <h1>Login</h1>
-            <#if error>
-                <div class="alert alert-danger" role="alert">
+                <div th:if="${error}" class="alert alert-danger" role="alert">
                     Incorrect login or password!
                 </div>
-            </#if>
-            <input name="${_csrf.parameterName}" value="${_csrf.token}" type="hidden">
+            <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden">
             <label for="username">Username</label>
             <input type="text" class="login-input" id="username" name="username" placeholder="Login"></input>
             <label for="password">Password</label>

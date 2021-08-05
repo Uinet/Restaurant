@@ -1,13 +1,12 @@
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>Main</title>
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
+        <header th:insert="fragments/header.html :: header"> </header>
         <div class="container">
-            <button class="button">Register</button>
-            <button class="button">Login</button>
         </div>
     </body>
 </html>
