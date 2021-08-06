@@ -12,6 +12,27 @@
     <header th:insert="fragments/header.html :: nav"> </header>
     <div class="container">
         <h1>Menu</h1>
+        <table>
+            <thead>
+            <tr>
+                <th> Name </th>
+                <th> Category </th>
+                <th> Description </th>
+                <th> Price </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${dishes.isEmpty()}">
+                <td colspan="2"> Menu is empty </td>
+            </tr>
+            <tr th:each="dish : ${dishes}">
+                <td><span th:text="${dish.getName()}"> Name </span></td>
+                <td><span th:text="${dish.getCategory()}"> Category </span></td>
+                <td><span th:text="${dish.getDescription()}"> Description </span></td>
+                <td><span th:text="${dish.getPrice()}"> Price </span></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
     <footer th:insert="fragments/footer.html :: footer"> </footer>
 </body>

@@ -13,9 +13,4 @@ public class MainPageController {
 
     @GetMapping("/about")
     public String aboutPage(){return  "about";}
-
-    @GetMapping("/menu")
-    public String menuPage(){
-        return "menu";
-    }
 }
