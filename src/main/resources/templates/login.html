@@ -4,21 +4,22 @@
     <head>
         <meta charset="UTF-8">
         <title>Login</title>
-        <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css">
-        <link type="text/css" rel="stylesheet" href="/css/style.css">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/style.css">
+        <script src="/js/bootstrap.min.js"></script>
+        <script src="/js/jquery.min.js"></script>
     </head>
     <body class="text-center">
         <form method="post" class="form-login">
             <h1>Login</h1>
-            <div th:if="${error}" class="alert alert-danger" role="alert">
-                Incorrect login or password!
+            <div th:if="${error}" class="alert alert-danger" role="alert" th:text="#{login.incorrect}">
             </div>
             <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden">
-            <label for="username">Username</label>
+            <label for="username" th:text="#{login.username}"></label>
             <input type="text" class="login-input" id="username" name="username" placeholder="Login"></input>
-            <label for="password">Password</label>
+            <label for="password" th:text="#{login.password}"></label>
             <input type="password" class="login-input" id="password" name="password" placeholder="Password"></input>
-            <button type="submit" class="submit-button">Login</button>
+            <button type="submit" class="submit-button" th:text="#{login.login_button}"></button>
             <a href="/reg"></a>
         </form>
     </body>

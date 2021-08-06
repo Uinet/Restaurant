@@ -43,3 +43,7 @@
     text-align: left;
     margin-top: 7px;
 }
+
+.text-end{
+    display: flex;
+}
