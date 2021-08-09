@@ -3,6 +3,8 @@ package com.github.uinet.project.domain;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -26,4 +28,7 @@ public class Dish {
 
     @Column(nullable = false)
     private String description;
+
+    @Column
+    private String img;
 }

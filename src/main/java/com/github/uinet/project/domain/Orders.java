@@ -23,6 +23,11 @@ public class Orders {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-    @Column(name = "total")
-    private double totalSum;
+    @OneToMany(mappedBy = "order")
+    private List<OrderDishes> orderDishes;
+
+    @Transient
+    public Double getTotalPrice() {
+        return orderDishes.stream().mapToDouble(OrderDishes::getTotalPrice).sum();
+    }
 }

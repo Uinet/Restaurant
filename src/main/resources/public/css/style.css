@@ -47,3 +47,7 @@
 .text-end{
     display: flex;
 }
+
+.filter{
+    margin-bottom: 10px;
+}

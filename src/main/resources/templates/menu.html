@@ -7,27 +7,40 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/jquery.min.js"></script>
-    <script src="/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
     <header th:insert="fragments/header.html :: nav"> </header>
     <div class="container">
         <h1>Menu</h1>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
+        <div class="dropdown filter" id="filter">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                Category
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li th:each="category : ${T(com.github.uinet.project.domain.DishesCategory).values()}"><a class="dropdown-item" href="#" th:text="${category}"></a></li>
+            </ul>
         </div>
         <div class="row">
-            <div th:each="dish : ${dishes}" class="mb-3 col-md-3">
+            <div class="col-9">
+                <div class="row">
+                    <div th:each="dish : ${dishes}" class="card col-3" style="width: 18rem;">
+                        <!--<img src="..." class="card-img-top" alt="...">-->
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${dish.getName()}"></h5>
+                            <p class="card-text" th:text="${dish.getCategory()}"></p>
+                            <p class="card-text" th:text="${dish.getDescription()}"></p>
+                            <p class="card-text" th:text="${dish.getPrice()}"></p>
+                            <a href="#" class="btn btn-primary" th:text="#{menu.buy}"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
                 <div class="card" style="width: 18rem;">
-                    <!--<img src="..." class="card-img-top" alt="...">-->
                     <div class="card-body">
-                        <h5 class="card-title" th:text="${dish.getName()}"></h5>
-                        <p class="card-text" th:text="${dish.getCategory()}"></p>
-                        <p class="card-text" th:text="${dish.getDescription()}"></p>
-                        <p class="card-text" th:text="${dish.getPrice()}"></p>
-                        <a href="#" class="btn btn-primary" th:text="#{menu.buy}"></a>
+                        <h5 class="card-title" th:text="#{cart.name}"></h5>
+                        <p class="card-text"></p>
+                        <a href="#" class="btn btn-primary" th:text="#{cart.button}"></a>
                     </div>
                 </div>
             </div>

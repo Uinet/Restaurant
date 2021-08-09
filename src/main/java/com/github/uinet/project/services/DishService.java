@@ -1,6 +1,7 @@
 package com.github.uinet.project.services;
 
 import com.github.uinet.project.domain.Dish;
+import com.github.uinet.project.domain.DishesCategory;
 import com.github.uinet.project.repository.DishRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,5 +21,9 @@ public class DishService {
 
     public List<Dish> findAllDish(){
         return dishRepository.findAll();
+    }
+
+    public List<Dish> findAllByCategory(DishesCategory category){
+        return dishRepository.findAllByCategory(category);
     }
 }
