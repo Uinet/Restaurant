@@ -4,7 +4,6 @@ import com.github.uinet.project.domain.*;
 import com.github.uinet.project.services.DishService;
 import com.github.uinet.project.services.OrdersService;
 import com.github.uinet.project.utils.Utils;
-import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -65,6 +64,7 @@ public class MenuController {
         if(orders.getOrderDishes().size() != 0){
             ordersService.save(orders);
         }
+        Utils.removeOrderFromSession(httpServletRequest);
         return "redirect:/menu";
     }
 }

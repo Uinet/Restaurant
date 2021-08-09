@@ -43,6 +43,7 @@
                     <div class="card-body">
                         <h5 class="card-title" th:text="#{cart.name}"></h5>
                         <p class="card-text" th:each="ordersDish:${order.getOrderDishes()}" th:text="${ordersDish.getDish().getName()}"></p>
+                        <p class="card-text" th:text="${order.getTotalPrice()}"></p>
                         <form method="post" th:action="@{/menu/buy}">
                             <button class="btn btn-primary" th:text="#{cart.button}"></button>
                         </form>

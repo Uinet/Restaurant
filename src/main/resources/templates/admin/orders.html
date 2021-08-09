@@ -10,7 +10,23 @@
 </head><body>
     <header th:insert="fragments/header.html :: nav"> </header>
     <div class="container">
-        <H1>ORDERS</H1>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Status</th>
+                <th scope="col">Customer</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="order : ${orders}">
+                <th scope="row" th:text="${order.getId()}"></th>
+                <td th:text="${order.getStatus()}"></td>
+                <td th:text="${order.getUser().getName()}"></td>
+                <td><button type="button" class="btn btn-danger" th:text="#{orders.cancel}"></button></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
     <footer th:insert="fragments/footer.html :: footer"> </footer>
 </body>

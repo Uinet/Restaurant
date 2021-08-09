@@ -26,4 +26,28 @@ public class DishService {
     public List<Dish> findAllByCategory(DishesCategory category){
         return dishRepository.findAllByCategory(category);
     }
+
+    public List<Dish> findAllByOrderByNameAsc(){
+        return dishRepository.findAllByOrderByNameAsc();
+    }
+
+    public List<Dish> findAllByOrderByNameDesc(){
+        return dishRepository.findAllByOrderByNameDesc();
+    }
+
+    public List<Dish> findAllByOrderByCategoryAsc(){
+        return dishRepository.findAllByOrderByCategoryAsc();
+    }
+
+    public List<Dish> findAllByOrderByPriceAsc(){
+        return dishRepository.findAllByOrderByPriceAsc();
+    }
+
+    public List<Dish> findAllByOrderByCategoryDesc(){
+        return dishRepository.findAllByOrderByCategoryDesc();
+    }
+
+    public List<Dish> findAllByOrderByPriceDesc(){
+        return dishRepository.findAllByOrderByPriceDesc();
+    }
 }

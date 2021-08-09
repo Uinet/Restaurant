@@ -12,16 +12,16 @@
 <body class="text-center">
 <form method="post" class="form-login">
     <h1>Registration</h1>
-    <div th:if="${userIsExist}" class="alert alert-danger" role="alert" th:text="#{register.error.email}">
+    <div th:if="${userIsExist}" class="alert alert-danger" role="alert" th:text="#{registration.error.email}">
     </div>
     <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden">
-    <label for="name">Name</label>
+    <label for="name" th:text="#{registration.name}"></label>
     <input type="text" class="login-input" id="name" name="name" placeholder="Name"></input>
-    <label for="username">Email</label>
+    <label for="username" th:text="#{registration.login}"></label>
     <input type="text" class="login-input" id="username" name="username" placeholder="Login"></input>
-    <label for="password">Password</label>
+    <label for="password" th:text="#{registration.password}"></label>
     <input type="password" class="login-input" id="password" name="password" placeholder="Password"></input>
-    <button type="submit" class="submit-button">Sign in</button>
+    <button type="submit" class="submit-button" th:text="#{registration.reg}"></button>
 </form>
 </body>
 </html>
