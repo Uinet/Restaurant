@@ -1,14 +1,17 @@
 package com.github.uinet.project.domain;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name="orders")
 @Getter
+@Setter
 public class Orders {
 
     @Id
@@ -24,7 +27,7 @@ public class Orders {
     private User user;
 
     @OneToMany(mappedBy = "order")
-    private List<OrderDishes> orderDishes;
+    private List<OrderDishes> orderDishes = new ArrayList<>();
 
     @Transient
     public Double getTotalPrice() {

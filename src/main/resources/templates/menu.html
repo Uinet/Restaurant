@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
     <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
     <script src="/js/jquery.min.js"></script>
 </head>
 <body>
@@ -17,7 +18,7 @@
                 Category
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li th:each="category : ${T(com.github.uinet.project.domain.DishesCategory).values()}"><a class="dropdown-item" href="#" th:text="${category}"></a></li>
+                <li th:each="category : ${T(com.github.uinet.project.domain.DishesCategory).values()}"><a class="dropdown-item" th:href="@{/menu(category=${category})}" th:text="${category}"></a></li>
             </ul>
         </div>
         <div class="row">
@@ -30,7 +31,9 @@
                             <p class="card-text" th:text="${dish.getCategory()}"></p>
                             <p class="card-text" th:text="${dish.getDescription()}"></p>
                             <p class="card-text" th:text="${dish.getPrice()}"></p>
-                            <a href="#" class="btn btn-primary" th:text="#{menu.buy}"></a>
+                            <form method="post" th:action="@{/menu/addToCart(dishId=${dish.getId()})}">
+                                <button class="btn btn-primary" th:text="#{menu.buy}"></button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -39,8 +42,10 @@
                 <div class="card" style="width: 18rem;">
                     <div class="card-body">
                         <h5 class="card-title" th:text="#{cart.name}"></h5>
-                        <p class="card-text"></p>
-                        <a href="#" class="btn btn-primary" th:text="#{cart.button}"></a>
+                        <p class="card-text" th:each="ordersDish:${order.getOrderDishes()}" th:text="${ordersDish.getDish().getName()}"></p>
+                        <form method="post" th:action="@{/menu/buy}">
+                            <button class="btn btn-primary" th:text="#{cart.button}"></button>
+                        </form>
                     </div>
                 </div>
             </div>
