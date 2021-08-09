@@ -12,27 +12,20 @@
     <header th:insert="fragments/header.html :: nav"> </header>
     <div class="container">
         <h1>Menu</h1>
-        <table>
-            <thead>
-            <tr>
-                <th> Name </th>
-                <th> Category </th>
-                <th> Description </th>
-                <th> Price </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:if="${dishes.isEmpty()}">
-                <td colspan="2"> Menu is empty </td>
-            </tr>
-            <tr th:each="dish : ${dishes}">
-                <td><span th:text="${dish.getName()}"> Name </span></td>
-                <td><span th:text="${dish.getCategory()}"> Category </span></td>
-                <td><span th:text="${dish.getDescription()}"> Description </span></td>
-                <td><span th:text="${dish.getPrice()}"> Price </span></td>
-            </tr>
-            </tbody>
-        </table>
+        <div class="row">
+            <div th:each="dish : ${dishes}" class="col-sm-6 mb-3 col-md-4">
+                <div class="card" style="width: 18rem;">
+                    <!--<img src="..." class="card-img-top" alt="...">-->
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${dish.getName()}"></h5>
+                        <p class="card-text" th:text="${dish.getCategory()}"></p>
+                        <p class="card-text" th:text="${dish.getDescription()}"></p>
+                        <p class="card-text" th:text="${dish.getPrice()}"></p>
+                        <a href="#" class="btn btn-primary" th:text="#{menu.buy}"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <footer th:insert="fragments/footer.html :: footer"> </footer>
 </body>
