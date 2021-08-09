@@ -1,4 +1,4 @@
-package com.github.uinet.project.entity;
+package com.github.uinet.project.domain;
 
 public enum OrderStatus {
     NEW,

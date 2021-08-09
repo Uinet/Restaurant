@@ -1,6 +1,6 @@
 package com.github.uinet.project.services;
 
-import com.github.uinet.project.entity.Dish;
+import com.github.uinet.project.domain.Dish;
 import com.github.uinet.project.repository.DishRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

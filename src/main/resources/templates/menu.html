@@ -7,13 +7,19 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
     <header th:insert="fragments/header.html :: nav"> </header>
     <div class="container">
         <h1>Menu</h1>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+        </div>
         <div class="row">
-            <div th:each="dish : ${dishes}" class="col-sm-6 mb-3 col-md-4">
+            <div th:each="dish : ${dishes}" class="mb-3 col-md-3">
                 <div class="card" style="width: 18rem;">
                     <!--<img src="..." class="card-img-top" alt="...">-->
                     <div class="card-body">

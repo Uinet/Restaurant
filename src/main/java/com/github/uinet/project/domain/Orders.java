@@ -1,9 +1,14 @@
-package com.github.uinet.project.entity;
+package com.github.uinet.project.domain;
+
+import lombok.Getter;
 
 import javax.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name="orders")
+@Getter
 public class Orders {
 
     @Id

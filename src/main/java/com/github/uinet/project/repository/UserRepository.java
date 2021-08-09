@@ -1,6 +1,6 @@
 package com.github.uinet.project.repository;
 
-import com.github.uinet.project.entity.User;
+import com.github.uinet.project.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

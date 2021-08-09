@@ -1,6 +1,6 @@
 package com.github.uinet.project.repository;
 
-import com.github.uinet.project.entity.Orders;
+import com.github.uinet.project.domain.Orders;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
