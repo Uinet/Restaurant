@@ -2,6 +2,7 @@ package com.github.uinet.project.controller;
 
 import com.github.uinet.project.domain.Role;
 import com.github.uinet.project.domain.User;
+import com.github.uinet.project.exception.UserException;
 import com.github.uinet.project.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,7 +32,7 @@ public class RegistrationFormController {
         try {
             user.setRole(Collections.singleton(Role.CLIENT));
             userService.registerNewUser(user);
-        } catch (Exception e) {
+        } catch (UserException e) {
             e.printStackTrace();
             model.addAttribute("userIsExist", true);
             return "registration";

@@ -1,6 +1,7 @@
 package com.github.uinet.project.services;
 
 import com.github.uinet.project.domain.User;
+import com.github.uinet.project.exception.UserException;
 import com.github.uinet.project.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,7 +23,11 @@ public class UserService implements UserDetailsService {
         return userRepository.findByUsername(username).orElseThrow(()->new UsernameNotFoundException("Email: " + username + "not found"));
     }
 
-    public Optional<User> registerNewUser(User user) throws Exception {
-        return Optional.of(userRepository.save(user));
+    public Optional<User> registerNewUser(User user) throws UserException {
+        try {
+            return Optional.of(userRepository.save(user));
+        }catch (Exception exception){
+            throw new UserException("User is exist");
+        }
     }
 }

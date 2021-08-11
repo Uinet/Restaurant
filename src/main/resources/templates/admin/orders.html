@@ -16,10 +16,14 @@
                 <th scope="col">#</th>
                 <th scope="col">Status</th>
                 <th scope="col">Customer</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="order : ${orders}">
+            <tr th:each="order : ${orderPages.content}">
                 <th scope="row" th:text="${order.getId()}"></th>
                 <td th:text="${order.getStatus()}"></td>
                 <td th:text="${order.getUser().getName()}"></td>
@@ -27,6 +31,11 @@
             </tr>
             </tbody>
         </table>
+        <nav>
+            <ul class="pagination">
+                <li th:each="pageNumber: ${pageNumbers}" class="page-item"><a class="page-link" th:href="@{orders(page=${pageNumber})}" th:text="${pageNumber + 1}"></a></li>
+            </ul>
+        </nav>
     </div>
     <footer th:insert="fragments/footer.html :: footer"> </footer>
 </body>

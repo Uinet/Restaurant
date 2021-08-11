@@ -5,6 +5,8 @@ import com.github.uinet.project.domain.User;
 import com.github.uinet.project.repository.OrdersDishRepository;
 import com.github.uinet.project.repository.OrdersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,8 +26,8 @@ public class OrdersService {
         return ordersRepository.findByUserId(user.getId());
     }
 
-    public List<Orders> findAll(){
-        return ordersRepository.findAll();
+    public Page<Orders> findPaginated(Pageable pageable) {
+        return ordersRepository.findAll(pageable);
     }
 
     @Transactional
