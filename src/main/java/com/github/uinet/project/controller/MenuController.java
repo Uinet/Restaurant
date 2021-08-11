@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
+import java.util.List;
 
 @Controller
 public class MenuController {
@@ -26,12 +27,13 @@ public class MenuController {
 
     @GetMapping("/menu")
     public String menuPage(@RequestParam(value = "category", required = false) DishesCategory category,
+                           @RequestParam(value = "sortBy", required = false) String sortBy,
                            Model model,
                            HttpServletRequest httpServletRequest){
         if(category != null){
             model.addAttribute("dishes", dishService.findAllByCategory(category));
         }
-        else {
+        else{
             model.addAttribute("dishes", dishService.findAllDish());
         }
 

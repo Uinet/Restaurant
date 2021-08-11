@@ -1,16 +1,12 @@
 package com.github.uinet.project.domain;
 
-import lombok.Getter;
-import lombok.Setter;
-
-import java.util.List;
+import lombok.Data;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name="dishes")
-@Setter
-@Getter
+@Data
 public class Dish {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

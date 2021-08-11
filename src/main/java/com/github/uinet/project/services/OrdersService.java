@@ -57,9 +57,10 @@ public class OrdersService {
 
     @Transactional
     public void save(Orders orders){
-        ordersDishRepository.saveAll(ordersRepository.save(orders).getOrderDishes()
+        Orders order = ordersRepository.save(orders);
+        ordersDishRepository.saveAll(order.getOrderDishes()
                 .stream()
-                .peek(orderDishes -> orderDishes.setOrder(ordersRepository.save(orders)))
+                .peek(orderDishes -> orderDishes.setOrder(order))
                 .collect(Collectors.toList()));
     }
 }

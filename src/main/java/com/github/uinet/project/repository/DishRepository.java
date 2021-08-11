@@ -10,10 +10,4 @@ import java.util.Optional;
 public interface DishRepository extends JpaRepository<Dish,Long> {
     Optional<Dish> findById(Long id);
     List<Dish> findAllByCategory(DishesCategory dishesCategory);
-    List<Dish> findAllByOrderByNameAsc();
-    List<Dish> findAllByOrderByNameDesc();
-    List<Dish> findAllByOrderByCategoryAsc();
-    List<Dish> findAllByOrderByCategoryDesc();
-    List<Dish> findAllByOrderByPriceAsc();
-    List<Dish> findAllByOrderByPriceDesc();
 }

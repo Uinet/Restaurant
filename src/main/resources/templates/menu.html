@@ -13,19 +13,34 @@
     <header th:insert="fragments/header.html :: nav"> </header>
     <div class="container">
         <h1>Menu</h1>
-        <div class="dropdown filter" id="filter">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                Category
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li th:each="category : ${T(com.github.uinet.project.domain.DishesCategory).values()}"><a class="dropdown-item" th:href="@{/menu(category=${category})}" th:text="${category}"></a></li>
-            </ul>
+        <div class="menu-button-group">
+            <div class="dropdown filter" id="filter">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuCategoryButton" data-bs-toggle="dropdown" aria-expanded="false">
+                    Category
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuCategoryButton">
+                    <li th:each="category : ${T(com.github.uinet.project.domain.DishesCategory).values()}"><a class="dropdown-item" th:href="@{/menu(category=${category})}" th:text="${category}"></a></li>
+                </ul>
+            </div>
+            <div class="dropdown filter" id="sort">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuSortButton" data-bs-toggle="dropdown" aria-expanded="false">
+                    Sort by
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuSortButton">
+                    <li><a class="dropdown-item" th:href="@{/menu(sortBy='nameAsc')}">Name Asc</a></li>
+                    <li><a class="dropdown-item" th:href="@{/menu(sortBy='nameDesc')}">Name Desc</a></li>
+                    <li><a class="dropdown-item" th:href="@{/menu(sortBy='priceAsc')}">Price Asc</a></li>
+                    <li><a class="dropdown-item" th:href="@{/menu(sortBy='priceDesc')}">Price Desc</a></li>
+                    <li><a class="dropdown-item" th:href="@{/menu(sortBy='categoryAsc')}">Category Asc</a></li>
+                    <li><a class="dropdown-item" th:href="@{/menu(sortBy='nameDesc')}">Category Desc</a></li>
+                </ul>
+            </div>
         </div>
         <div class="row">
             <div class="col-9">
                 <div class="row">
                     <div th:each="dish : ${dishes}" class="card col-3" style="width: 18rem;">
-                        <!--<img src="..." class="card-img-top" alt="...">-->
+                        <img th:src="'/img/' + ${dish.getImg()}" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title" th:text="${dish.getName()}"></h5>
                             <p class="card-text" th:text="${dish.getCategory()}"></p>

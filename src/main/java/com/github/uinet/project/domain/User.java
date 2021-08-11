@@ -1,7 +1,6 @@
 package com.github.uinet.project.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -10,8 +9,7 @@ import java.util.Collection;
 import java.util.Set;
 
 @Entity
-@Setter
-@Getter
+@Data
 @Table(name="users")
 public class User implements UserDetails {
     @Id
