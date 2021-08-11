@@ -40,7 +40,7 @@ public class MenuController {
     }
 
     @PostMapping("/menu/addToCart")
-    public String menuPage(@RequestParam(value = "dishId", required = false) long dishId,
+    public String addToCart(@RequestParam(value = "dishId") long dishId,
                            HttpServletRequest httpServletRequest){
         Optional<Dish> dish = dishService.findDishById(dishId);
         if(!dish.isPresent()){
@@ -48,11 +48,55 @@ public class MenuController {
         }
 
         Orders orders = Utils.getOrderFromSession(httpServletRequest);
-        OrderDishes orderDishes = new OrderDishes();
-        orderDishes.setOrder(orders);
-        orderDishes.setDish(dish.get());
-        orderDishes.setQuantities(1);
-        orders.getOrderDishes().add(orderDishes);
+        Optional<OrderDishes> orderDish = orders.getOrderDishes().stream()
+                .filter(orderDishes -> orderDishes.getDish().getId() == dishId)
+                .findFirst();
+        if(orderDish.isPresent()){
+            orderDish.get().incrementQuantities();
+        }else {
+            orders.getOrderDishes().add(OrderDishes.builder()
+                    .dish(dish.get())
+                    .order(orders)
+                    .quantities(1)
+                    .build());
+        }
+        return "redirect:/menu";
+    }
+
+    @PostMapping("/menu/removeFromCart")
+    public String removeFromCart(@RequestParam(value = "dishId") long dishId,
+                                 HttpServletRequest httpServletRequest){
+        Orders orders = Utils.getOrderFromSession(httpServletRequest);
+        orders.getOrderDishes().removeIf(orderDishes -> orderDishes.getDish().getId() == dishId);
+        return "redirect:/menu";
+    }
+
+    @PostMapping("/menu/increase")
+    public String increaseDishQuantities(@RequestParam(value = "dishId") long dishId,
+                                         HttpServletRequest httpServletRequest){
+        Orders orders = Utils.getOrderFromSession(httpServletRequest);
+        orders.getOrderDishes().stream()
+                .filter(orderDishes -> orderDishes.getDish().getId() == dishId)
+                .findFirst().ifPresent(OrderDishes::incrementQuantities);
+        return "redirect:/menu";
+    }
+
+    @PostMapping("/menu/reduce")
+    public String reduceDishQuantities(@RequestParam(value = "dishId") long dishId,
+                                         HttpServletRequest httpServletRequest){
+        Orders orders = Utils.getOrderFromSession(httpServletRequest);
+        Optional<OrderDishes> orderDish = orders.getOrderDishes().stream()
+                .filter(orderDishes -> orderDishes.getDish().getId() == dishId)
+                .findFirst();
+
+        if(orderDish.isPresent()){
+            if(orderDish.get().getQuantities() == 1){
+                removeFromCart(dishId, httpServletRequest);
+            }
+            else{
+                orderDish.get().decrementQuantities();
+            }
+        }
         return "redirect:/menu";
     }
 

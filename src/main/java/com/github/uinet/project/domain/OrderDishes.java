@@ -1,7 +1,6 @@
 package com.github.uinet.project.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -9,6 +8,9 @@ import javax.persistence.*;
 @Table
 @Setter
 @Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class OrderDishes {
 
     @Id
@@ -33,5 +35,15 @@ public class OrderDishes {
     @Transient
     public Double getTotalPrice() {
         return getDish().getPrice() * quantities;
+    }
+
+    @Transient
+    public void incrementQuantities(){
+        quantities++;
+    }
+
+    @Transient
+    public void decrementQuantities(){
+        quantities--;
     }
 }
