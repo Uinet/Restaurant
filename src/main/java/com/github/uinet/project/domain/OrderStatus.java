@@ -2,8 +2,9 @@ package com.github.uinet.project.domain;
 
 public enum OrderStatus {
     NEW,
-    COOKING,
-    DELIVERING,
+    COOKED,
+    DELIVERED,
+    PAID,
     CLOSED,
     CANCELED;
 }

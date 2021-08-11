@@ -23,11 +23,30 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="order : ${orderPages.content}">
+            <tr th:each="order : ${orderPages}">
                 <th scope="row" th:text="${order.getId()}"></th>
                 <td th:text="${order.getStatus()}"></td>
                 <td th:text="${order.getUser().getName()}"></td>
-                <td><button type="button" class="btn btn-danger" th:text="#{orders.cancel}"></button></td>
+                <td>
+                    <form method="post" th:action="@{orders/cook(orderId=${order.getId()})}">
+                        <button type="submit" th:disabled="${order.getStatus().toString() != 'NEW'}" class="btn btn-primary" th:text="#{orders.cooking}"></button>
+                    </form>
+                </td>
+                <td>
+                    <form method="post" th:action="@{orders/deliver(orderId=${order.getId()})}">
+                        <button type="submit" th:disabled="${order.getStatus().toString() != 'COOKED'}" class="btn btn-secondary" th:text="#{orders.deliver}"></button>
+                    </form>
+                </td>
+                <td>
+                    <form method="post" th:action="@{orders/complete(orderId=${order.getId()})}">
+                        <button type="submit" th:disabled="${order.getStatus().toString() != 'PAID'}" class="btn btn-success" th:text="#{orders.complete}"></button>
+                    </form>
+                </td>
+                <td>
+                    <form method="post" th:action="@{orders/cancel(orderId=${order.getId()})}">
+                        <button type="submit" th:disabled="${order.getStatus().toString() == 'CLOSED'}" class="btn btn-danger" th:text="#{orders.cancel}"></button>
+                    </form>
+                </td>
             </tr>
             </tbody>
         </table>

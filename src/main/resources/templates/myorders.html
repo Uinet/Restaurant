@@ -9,8 +9,33 @@
 <body>
 <header th:insert="fragments/header.html :: nav"> </header>
 <div class="container">
-    <h1>My order</h1>
-
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Status</th>
+            <th scope="col">Customer</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order : ${orderPages}">
+            <th scope="row" th:text="${order.getId()}"></th>
+            <td th:text="${order.getStatus()}"></td>
+            <td th:text="${order.getUser().getName()}"></td>
+            <td>
+                <form method="post" th:action="@{myorders/pay(orderId=${order.getId()})}">
+                    <button type="submit" th:disabled="${order.getStatus().toString() != 'DELIVERED'}" class="btn btn-primary" th:text="#{my.orders.pay}"></button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <nav>
+        <ul class="pagination">
+            <li th:each="pageNumber: ${pageNumbers}" class="page-item"><a class="page-link" th:href="@{orders(page=${pageNumber})}" th:text="${pageNumber + 1}"></a></li>
+        </ul>
+    </nav>
 </div>
 <footer th:insert="fragments/footer.html :: footer"> </footer>
 </body>
