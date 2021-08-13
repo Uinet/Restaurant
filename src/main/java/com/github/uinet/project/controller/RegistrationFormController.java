@@ -5,6 +5,7 @@ import com.github.uinet.project.domain.User;
 import com.github.uinet.project.exception.UserException;
 import com.github.uinet.project.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,9 @@ import java.util.Collections;
 public class RegistrationFormController {
 
     private final UserService userService;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @Autowired
     public RegistrationFormController(UserService userService) {
@@ -31,6 +35,7 @@ public class RegistrationFormController {
     public String regUser(User user, Model model){
         try {
             user.setRole(Collections.singleton(Role.CLIENT));
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
             userService.registerNewUser(user);
         } catch (UserException e) {
             e.printStackTrace();

@@ -16,6 +16,8 @@
                 <th scope="col">#</th>
                 <th scope="col">Status</th>
                 <th scope="col">Customer</th>
+                <th scope="col">Dishes</th>
+                <th scope="col">Sum</th>
                 <th></th>
                 <th></th>
                 <th></th>
@@ -27,6 +29,12 @@
                 <th scope="row" th:text="${order.getId()}"></th>
                 <td th:text="${order.getStatus()}"></td>
                 <td th:text="${order.getUser().getName()}"></td>
+                <td>
+                    <ul>
+                        <li th:each="orderDishes:${order.getOrderDishes()}" th:text="${orderDishes.dish.getName()} + ' - ' + ${orderDishes.getQuantities()}"></li>
+                    </ul>
+                </td>
+                <td th:text="${order.getTotalPrice()} + ' $'"></td>
                 <td>
                     <form method="post" th:action="@{orders/cook(orderId=${order.getId()})}">
                         <button type="submit" th:disabled="${order.getStatus().toString() != 'NEW'}" class="btn btn-primary" th:text="#{orders.cooking}"></button>

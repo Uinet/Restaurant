@@ -9,6 +9,7 @@ import com.github.uinet.project.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,13 +40,16 @@ public class UserController {
                                Model model){
 
         Page<Orders> ordersPage = ordersService.findPaginatedByUser((User) authUser.getPrincipal(),
-                PageRequest.of(page.orElse(0), pageSize.orElse(5)));
+                PageRequest.of(page.orElse(0),
+                        pageSize.orElse(5),
+                        Sort.by(Sort.Direction.DESC, "id")));
 
-        model.addAttribute("orderPages", ordersPage);
-        model.addAttribute("moneyError", error != null);
-        model.addAttribute("pageNumbers", IntStream.range(0,ordersPage.getTotalPages())
-                .boxed()
-                .collect(Collectors.toList()));
+        model.addAttribute("orderPages", ordersPage)
+                .addAttribute("moneyError", error != null)
+                .addAttribute("pageNumbers", IntStream.range(0,ordersPage.getTotalPages())
+                        .boxed()
+                        .collect(Collectors.toList()));
+
         return "/myorders";
     }
 

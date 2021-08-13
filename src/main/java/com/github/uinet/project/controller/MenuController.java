@@ -45,9 +45,10 @@ public class MenuController {
             Page<Dish> dishPage = dishService.findAllDish(PageRequest.of(page.orElse(0),
                     pageSize.orElse(5),
                     Sort.by(sortDirection, sortField)));
-            model.addAttribute("dishPage", dishPage);
-            model.addAttribute("pageNumbers", IntStream.range(0,dishPage.getTotalPages()).boxed().collect(Collectors.toList()));
-            model.addAttribute("currentPage", page.orElse(0));
+
+            model.addAttribute("dishPage", dishPage)
+                    .addAttribute("pageNumbers", IntStream.range(0,dishPage.getTotalPages()).boxed().collect(Collectors.toList()))
+                    .addAttribute("currentPage", page.orElse(0));
         }
 
         model.addAttribute("order", Utils.getOrderFromSession(httpServletRequest));
@@ -66,6 +67,7 @@ public class MenuController {
         Optional<OrderDishes> orderDish = orders.getOrderDishes().stream()
                 .filter(orderDishes -> orderDishes.getDish().getId() == dishId)
                 .findFirst();
+
         if(orderDish.isPresent()){
             orderDish.get().incrementQuantities();
         }else {

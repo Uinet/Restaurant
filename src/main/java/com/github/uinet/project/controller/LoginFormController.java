@@ -12,8 +12,10 @@ public class LoginFormController {
     public String loginPage(@RequestParam(value = "error", required = false) String error,
                             @RequestParam(value = "logout", required = false) String logout,
                             Model model){
-        model.addAttribute("error", error != null);
-        model.addAttribute("logout", logout != null);
+
+        model.addAttribute("error", error != null)
+                .addAttribute("logout", logout != null);
+
         return "login";
     }
 }

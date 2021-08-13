@@ -6,6 +6,7 @@ import com.github.uinet.project.services.OrdersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,11 +29,16 @@ public class AdminController {
     public String getOrderPage(@RequestParam("page") Optional<Integer> page,
                                @RequestParam("size") Optional<Integer> pageSize,
                                Model model){
-        Page<Orders> ordersPage = ordersService.findPaginated(PageRequest.of(page.orElse(0), pageSize.orElse(5)));
-        model.addAttribute("orderPages", ordersPage);
-        model.addAttribute("pageNumbers", IntStream.range(0,ordersPage.getTotalPages())
-                .boxed()
-                .collect(Collectors.toList()));
+
+        Page<Orders> ordersPage = ordersService.findPaginated(PageRequest.of(page.orElse(0),
+                pageSize.orElse(5),
+                Sort.by(Sort.Direction.DESC, "id")));
+
+        model.addAttribute("orderPages", ordersPage)
+                .addAttribute("pageNumbers", IntStream.range(0,ordersPage.getTotalPages())
+                        .boxed()
+                        .collect(Collectors.toList()));
+
         return "admin/orders";
     }
 
