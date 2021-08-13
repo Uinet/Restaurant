@@ -12,7 +12,7 @@
 <body>
     <header th:insert="fragments/header.html :: nav"> </header>
     <div class="container">
-        <h1>Menu</h1>
+        <h1 th:text="#{menu.Title}"></h1>
         <div class="menu-button-group">
             <div class="dropdown filter" id="filter">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuCategoryButton" data-bs-toggle="dropdown" aria-expanded="false">
@@ -27,19 +27,19 @@
                     Sort by
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuSortButton">
-                    <li><a class="dropdown-item" th:href="@{/menu(sortBy='nameAsc')}">Name Asc</a></li>
-                    <li><a class="dropdown-item" th:href="@{/menu(sortBy='nameDesc')}">Name Desc</a></li>
-                    <li><a class="dropdown-item" th:href="@{/menu(sortBy='priceAsc')}">Price Asc</a></li>
-                    <li><a class="dropdown-item" th:href="@{/menu(sortBy='priceDesc')}">Price Desc</a></li>
-                    <li><a class="dropdown-item" th:href="@{/menu(sortBy='categoryAsc')}">Category Asc</a></li>
-                    <li><a class="dropdown-item" th:href="@{/menu(sortBy='nameDesc')}">Category Desc</a></li>
+                    <li><a class="dropdown-item" th:href="@{/menu(sortField='name', sortDirection='ASC')}">Name Asc</a></li>
+                    <li><a class="dropdown-item" th:href="@{/menu(sortField='name', sortDirection='DESC')}">Name Desc</a></li>
+                    <li><a class="dropdown-item" th:href="@{/menu(sortField='price', sortDirection='ASC')}">Price Asc</a></li>
+                    <li><a class="dropdown-item" th:href="@{/menu(sortField='price', sortDirection='DESC')}">Price Desc</a></li>
+                    <li><a class="dropdown-item" th:href="@{/menu(sortField='category', sortDirection='ASC')}">Category Asc</a></li>
+                    <li><a class="dropdown-item" th:href="@{/menu(sortField='category', sortDirection='DESC')}">Category Desc</a></li>
                 </ul>
             </div>
         </div>
         <div class="row">
             <div class="col-9">
                 <div class="row">
-                    <div th:each="dish : ${dishes}" class="card col-3" style="width: 18rem;">
+                    <div th:each="dish : ${dishPage}" class="card col-3" style="width: 18rem;">
                         <img th:src="'/img/' + ${dish.getImg()}" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title" th:text="${dish.getName()}"></h5>
@@ -92,6 +92,13 @@
                 </div>
             </div>
         </div>
+        <nav>
+            <ul class="pagination">
+                <li class="page-item" th:if="${currentPage > 0}"><a class="page-link" th:href="@{menu(page=${currentPage - 1})}">Previous</a></li>
+                <li th:each="pageNumber: ${pageNumbers}" class="page-item"><a class="page-link" th:href="@{menu(page=${pageNumber})}" th:text="${pageNumber + 1}"></a></li>
+                <li class="page-item" th:if="${currentPage < pageNumbers.size()-1}"><a class="page-link" th:href="@{menu(page=${currentPage + 1})}">Next</a></li>
+            </ul>
+        </nav>
     </div>
     <footer th:insert="fragments/footer.html :: footer"> </footer>
 </body>

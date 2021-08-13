@@ -9,6 +9,8 @@
 <body>
 <header th:insert="fragments/header.html :: nav"> </header>
 <div class="container">
+    <div th:if="${moneyError}" class="alert alert-danger" role="alert" th:text="#{my.orders.error}">
+    </div>
     <table class="table">
         <thead>
         <tr>
@@ -33,7 +35,7 @@
     </table>
     <nav>
         <ul class="pagination">
-            <li th:each="pageNumber: ${pageNumbers}" class="page-item"><a class="page-link" th:href="@{orders(page=${pageNumber})}" th:text="${pageNumber + 1}"></a></li>
+            <li th:each="pageNumber: ${pageNumbers}" class="page-item"><a class="page-link" th:href="@{myorders(page=${pageNumber})}" th:text="${pageNumber + 1}"></a></li>
         </ul>
     </nav>
 </div>

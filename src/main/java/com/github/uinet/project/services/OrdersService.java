@@ -27,10 +27,6 @@ public class OrdersService {
     @Autowired
     OrdersDishRepository ordersDishRepository;
 
-    public List<Orders> findOrdersByUser(User user){
-        return ordersRepository.findByUserId(user.getId());
-    }
-
     public Page<Orders> findPaginated(Pageable pageable) {
         return ordersRepository.findAll(pageable);
     }

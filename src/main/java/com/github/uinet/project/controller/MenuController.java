@@ -5,6 +5,9 @@ import com.github.uinet.project.services.DishService;
 import com.github.uinet.project.services.OrdersService;
 import com.github.uinet.project.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
-import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 public class MenuController {
@@ -27,14 +31,23 @@ public class MenuController {
 
     @GetMapping("/menu")
     public String menuPage(@RequestParam(value = "category", required = false) DishesCategory category,
-                           @RequestParam(value = "sortBy", required = false) String sortBy,
+                           @RequestParam(value = "sortField", required = false, defaultValue = "id") String sortField,
+                           @RequestParam(value = "sortDirection", required = false, defaultValue = "ASC") Sort.Direction sortDirection,
+                           @RequestParam("page") Optional<Integer> page,
+                           @RequestParam("size") Optional<Integer> pageSize,
                            Model model,
                            HttpServletRequest httpServletRequest){
+
         if(category != null){
-            model.addAttribute("dishes", dishService.findAllByCategory(category));
+            model.addAttribute("dishPage", dishService.findAllByCategory(PageRequest.of(page.orElse(0), pageSize.orElse(0)),category));
         }
         else{
-            model.addAttribute("dishes", dishService.findAllDish());
+            Page<Dish> dishPage = dishService.findAllDish(PageRequest.of(page.orElse(0),
+                    pageSize.orElse(5),
+                    Sort.by(sortDirection, sortField)));
+            model.addAttribute("dishPage", dishPage);
+            model.addAttribute("pageNumbers", IntStream.range(0,dishPage.getTotalPages()).boxed().collect(Collectors.toList()));
+            model.addAttribute("currentPage", page.orElse(0));
         }
 
         model.addAttribute("order", Utils.getOrderFromSession(httpServletRequest));

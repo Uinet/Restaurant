@@ -32,6 +32,9 @@ public class User implements UserDetails {
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     private Set<Role> role;
 
+    @Column
+    private double money = 0.0;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return role;
