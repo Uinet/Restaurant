@@ -37,7 +37,8 @@ public class AdminController {
         model.addAttribute("orderPages", ordersPage)
                 .addAttribute("pageNumbers", IntStream.range(0,ordersPage.getTotalPages())
                         .boxed()
-                        .collect(Collectors.toList()));
+                        .collect(Collectors.toList()))
+                .addAttribute("currentPage", page.orElse(0));
 
         return "admin/orders";
     }

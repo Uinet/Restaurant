@@ -13,11 +13,12 @@
         <table class="table">
             <thead>
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">Status</th>
-                <th scope="col">Customer</th>
-                <th scope="col">Dishes</th>
-                <th scope="col">Sum</th>
+                <th scope="col" th:text="#{orders.table.id}"></th>
+                <th scope="col" th:text="#{orders.table.status}"></th>
+                <th scope="col" th:text="#{orders.table.date}"></th>
+                <th scope="col" th:text="#{orders.table.customer}"></th>
+                <th scope="col" th:text="#{orders.table.dishes}"></th>
+                <th scope="col" th:text="#{orders.table.sum}"></th>
                 <th></th>
                 <th></th>
                 <th></th>
@@ -28,6 +29,7 @@
             <tr th:each="order : ${orderPages}">
                 <th scope="row" th:text="${order.getId()}"></th>
                 <td th:text="${order.getStatus()}"></td>
+                <td th:text="${order.getCreationDate()}"></td>
                 <td th:text="${order.getUser().getName()}"></td>
                 <td>
                     <ul>
@@ -60,7 +62,9 @@
         </table>
         <nav>
             <ul class="pagination">
+                <li class="page-item" th:if="${currentPage > 0}"><a class="page-link" th:href="@{orders(page=${currentPage - 1})}">Previous</a></li>
                 <li th:each="pageNumber: ${pageNumbers}" class="page-item"><a class="page-link" th:href="@{orders(page=${pageNumber})}" th:text="${pageNumber + 1}"></a></li>
+                <li class="page-item" th:if="${currentPage < pageNumbers.size()-1}"><a class="page-link" th:href="@{orders(page=${currentPage + 1})}">Next</a></li>
             </ul>
         </nav>
     </div>

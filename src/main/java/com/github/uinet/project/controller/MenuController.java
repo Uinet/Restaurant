@@ -43,7 +43,7 @@ public class MenuController {
         }
         else{
             Page<Dish> dishPage = dishService.findAllDish(PageRequest.of(page.orElse(0),
-                    pageSize.orElse(5),
+                    pageSize.orElse(6),
                     Sort.by(sortDirection, sortField)));
 
             model.addAttribute("dishPage", dishPage)

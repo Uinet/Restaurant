@@ -1,6 +1,5 @@
 package com.github.uinet.project.controller;
 
-import com.github.uinet.project.domain.OrderStatus;
 import com.github.uinet.project.domain.Orders;
 import com.github.uinet.project.domain.User;
 import com.github.uinet.project.exception.UserException;
@@ -48,7 +47,8 @@ public class UserController {
                 .addAttribute("moneyError", error != null)
                 .addAttribute("pageNumbers", IntStream.range(0,ordersPage.getTotalPages())
                         .boxed()
-                        .collect(Collectors.toList()));
+                        .collect(Collectors.toList()))
+                .addAttribute("currentPage", page.orElse(0));
 
         return "/myorders";
     }
