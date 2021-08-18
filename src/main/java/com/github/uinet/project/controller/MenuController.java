@@ -38,18 +38,20 @@ public class MenuController {
                            Model model,
                            HttpServletRequest httpServletRequest){
 
+        Page<Dish> dishPage;
+
         if(category != null){
-            model.addAttribute("dishPage", dishService.findAllByCategory(PageRequest.of(page.orElse(0), pageSize.orElse(0)),category));
+            dishPage = dishService.findAllByCategory(PageRequest.of(page.orElse(0), pageSize.orElse(6)),category);
         }
         else{
-            Page<Dish> dishPage = dishService.findAllDish(PageRequest.of(page.orElse(0),
+            dishPage = dishService.findAllDish(PageRequest.of(page.orElse(0),
                     pageSize.orElse(6),
                     Sort.by(sortDirection, sortField)));
-
-            model.addAttribute("dishPage", dishPage)
-                    .addAttribute("pageNumbers", IntStream.range(0,dishPage.getTotalPages()).boxed().collect(Collectors.toList()))
-                    .addAttribute("currentPage", page.orElse(0));
         }
+
+        model.addAttribute("dishPage", dishPage)
+                .addAttribute("pageNumbers", IntStream.range(0,dishPage.getTotalPages()).boxed().collect(Collectors.toList()))
+                .addAttribute("currentPage", page.orElse(0));
 
         model.addAttribute("order", Utils.getOrderFromSession(httpServletRequest));
         return "menu";

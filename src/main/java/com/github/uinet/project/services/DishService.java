@@ -21,7 +21,7 @@ public class DishService {
         return dishRepository.findById(id);
     }
 
-    public List<Dish> findAllByCategory( Pageable pageable, DishesCategory category){
+    public Page<Dish> findAllByCategory( Pageable pageable, DishesCategory category){
         return dishRepository.findAllByCategory(pageable, category);
     }
 

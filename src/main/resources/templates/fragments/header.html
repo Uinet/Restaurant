@@ -13,6 +13,7 @@
                     <li><a sec:authorize="isAuthenticated()" href="/menu" class="nav-link px-2 text-white" th:text="#{nav.menu}"></a></li>
                     <li sec:authorize="isAuthenticated()"><a href="/myorders" class="nav-link px-2 text-white" th:text="#{nav.myorders}"></a></li>
                     <li sec:authorize="hasAuthority('MANAGER')"><a href="/admin/orders" class="nav-link px-2 text-white" th:text="#{nav.orders}"></a></li>
+                    <li sec:authorize="hasAuthority('MANAGER')"><a href="/admin/users" class="nav-link px-2 text-white" th:text="#{nav.users}"></a></li>
                     <li><a href="/about" class="nav-link px-2 text-white" th:text="#{nav.about}"></a></li>
                 </ul>
                 <div class="text-end">

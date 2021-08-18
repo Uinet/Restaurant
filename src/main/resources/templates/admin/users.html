@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.min.js"></script>
+</head>
+<body>
+    <header th:insert="fragments/header.html :: nav"> </header>
+    <div class="container">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col" th:text="#{users.table.id}"></th>
+                <th scope="col" th:text="#{users.table.name}"></th>
+                <th scope="col" th:text="#{users.table.username}"></th>
+                <th scope="col" th:text="#{users.table.role}"></th>
+                <th scope="col" th:text="#{users.table.money}"></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${userPages}">
+                <th scope="row" th:text="${user.getId()}"></th>
+                <td th:text="${user.getName()}"></td>
+                <td th:text="${user.getUsername()}"></td>
+                <td th:text="${user.getRole()}"></td>
+                <td th:text="${user.getMoney()}"></td>
+                <td>
+                    <form method="post" th:action="@{/admin/users}">
+                        <input type="number" id="money" step="0.01" min="0" name="money" placeholder="0.0"></input>
+                        <input type="hidden" th:value="${user.id}" id="userId" name="userId">
+                        <button type="submit" class="btn btn-primary" th:text="#{users.table.top_up_balance}"></button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <nav>
+            <ul class="pagination">
+                <li class="page-item" th:if="${currentPage > 0}"><a class="page-link" th:href="@{users(page=${currentPage - 1})}">Previous</a></li>
+                <li th:each="pageNumber: ${pageNumbers}" class="page-item"><a class="page-link" th:href="@{users(page=${pageNumber})}" th:text="${pageNumber + 1}"></a></li>
+                <li class="page-item" th:if="${currentPage < pageNumbers.size()-1}"><a class="page-link" th:href="@{users(page=${currentPage + 1})}">Next</a></li>
+            </ul>
+        </nav>
+    </div>
+    <footer th:insert="fragments/footer.html :: footer"> </footer>
+</body>
+</html>
