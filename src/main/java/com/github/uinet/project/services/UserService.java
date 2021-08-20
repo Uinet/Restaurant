@@ -5,10 +5,10 @@ import com.github.uinet.project.domain.Orders;
 import com.github.uinet.project.domain.User;
 import com.github.uinet.project.exception.UserException;
 import com.github.uinet.project.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+@Slf4j
 @Service
 public class UserService implements UserDetailsService {
 
@@ -28,13 +29,17 @@ public class UserService implements UserDetailsService {
 
     @Override
     public User loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByUsername(username).orElseThrow(()->new UsernameNotFoundException("Email: " + username + "not found"));
+        return userRepository.findByUsername(username).orElseThrow(()->{
+            log.error("Email not found");
+            return new UsernameNotFoundException("Email: " + username + "not found");
+        });
     }
 
     public Optional<User> registerNewUser(User user) throws UserException {
         try {
             return Optional.of(userRepository.save(user));
         }catch (Exception exception){
+            log.error("User is exist");
             throw new UserException("User is exist " + exception.getMessage());
         }
     }
@@ -48,6 +53,7 @@ public class UserService implements UserDetailsService {
             ordersService.changeStatus(orders.getId(), OrderStatus.PAID);
         }
         else{
+            log.error("Money not enough");
             throw new UserException("Not enough money");
         }
     }

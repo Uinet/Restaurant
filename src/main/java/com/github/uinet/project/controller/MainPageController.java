@@ -10,7 +10,4 @@ public class MainPageController {
     public String mainPage(){
         return "main";
     }
-
-    @GetMapping("/about")
-    public String aboutPage(){return  "about";}
 }

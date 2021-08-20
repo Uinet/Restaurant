@@ -36,18 +36,20 @@ public class OrdersService {
     }
 
     @Transactional
-    public void changeStatus(Long id, OrderStatus status){
+    public OrderStatus changeStatus(Long id, OrderStatus status){
         Orders order = ordersRepository.getById(id);
         order.setStatus(status);
         ordersRepository.save(order);
+        return order.getStatus();
     }
 
     @Transactional
-    public void save(Orders orders){
+    public Orders save(Orders orders){
         Orders order = ordersRepository.save(orders);
         ordersDishRepository.saveAll(order.getOrderDishes()
                 .stream()
                 .peek(orderDishes -> orderDishes.setOrder(order))
                 .collect(Collectors.toList()));
+        return order;
     }
 }

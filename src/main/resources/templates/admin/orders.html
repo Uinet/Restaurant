@@ -29,7 +29,7 @@
             <tr th:each="order : ${orderPages}">
                 <th scope="row" th:text="${order.getId()}"></th>
                 <td th:text="${order.getStatus()}"></td>
-                <td th:text="${order.getCreationDate()}"></td>
+                <td th:text="${#temporals.format(order.getCreationDate(), 'dd-MMMM-yyyy')}"></td>
                 <td th:text="${order.getUser().getName()}"></td>
                 <td>
                     <ul>

@@ -1,5 +1,7 @@
 package com.github.uinet.project.services;
 
+import com.github.uinet.project.domain.OrderStatus;
+import com.github.uinet.project.domain.Orders;
 import com.github.uinet.project.domain.Role;
 import com.github.uinet.project.domain.User;
 import com.github.uinet.project.exception.UserException;
@@ -37,6 +39,12 @@ public class UserServiceTest {
     @Mock
     private Pageable pageable;
 
+    @Mock
+    private OrdersService ordersService;
+
+    @Mock
+    private Orders order;
+
     private User user;
 
     @Before
@@ -73,8 +81,12 @@ public class UserServiceTest {
         userService.registerNewUser(user);
     }
 
+    //TODO finish the test
     @Test
     public void buyOrder() {
+        when(userRepository.save(user)).thenReturn(user);
+        when(userRepository.getById(user.getId())).thenReturn(user);
+        when(ordersService.changeStatus(order.getId(), OrderStatus.PAID)).thenCallRealMethod();
     }
 
     @Test
